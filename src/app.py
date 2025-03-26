@@ -1,7 +1,15 @@
-import streamlit as st
-import time
+from frontend import ExcelValidadorUI
+from backend import process_excel
 
+def main():
+    ui = ExcelValidadorUI()
+    ui.display_header()
 
-with st.spinner('wait for it...'):
-    time.sleep(5)
-st.success("Done!")    
+    upload_file = ui.upload_file()
+
+    if upload_file:
+        result, error = process_excel(upload_file)
+        ui.display_results(result, error)
+
+if __name__ == "__main__":
+    main()
